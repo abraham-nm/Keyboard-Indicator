@@ -29,7 +29,8 @@ public class IndicatorFrame extends javax.swing.JFrame {
      */
     public IndicatorFrame() {
         initComponents();
-        setBackground(new Color(0, 0, 0, 80));
+
+        setBackground(new Color(0, 0, 0, 105));
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -64,10 +65,26 @@ public class IndicatorFrame extends javax.swing.JFrame {
                 //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
+        numBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toggleKey(KeyEvent.VK_NUM_LOCK);
+                //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
+        scrBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toggleKey(KeyEvent.VK_SCROLL_LOCK);
+                //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
     }
 
     public void toggleKey(int keycode) {
-
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        boolean curretState = toolkit.getLockingKeyState(keycode);
+        toolkit.setLockingKeyState(keycode, !curretState);
     }
 
     public void updateButtons() {
