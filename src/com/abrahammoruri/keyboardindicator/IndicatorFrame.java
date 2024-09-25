@@ -5,6 +5,10 @@
 package com.abrahammoruri.keyboardindicator;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -29,7 +33,16 @@ public class IndicatorFrame extends javax.swing.JFrame {
      */
     public IndicatorFrame() {
         initComponents();
-
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        Insets screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(gd.getDefaultConfiguration());
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int taskbarHeight = screenInsets.bottom;
+        int usableHeight = screenSize.height - taskbarHeight;
+        int usableWidth = screenSize.width;
+        int windowx = usableWidth - getWidth();
+        int windowy = usableHeight - getHeight();
+        setLocation(windowx, windowy - 50);
         setBackground(new Color(0, 0, 0, 105));
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -94,7 +107,7 @@ public class IndicatorFrame extends javax.swing.JFrame {
         boolean isScrollLockOn = toolkit.getLockingKeyState(KeyEvent.VK_SCROLL_LOCK);
         capsBtn.setBackground(isCapslockOn ? Color.GREEN : Color.RED);
         numBtn.setBackground(isNumLockOn ? Color.GREEN : Color.RED);
-        scrBtn.setBackground(isNumLockOn ? Color.GREEN : Color.RED);
+        scrBtn.setBackground(isScrollLockOn ? Color.GREEN : Color.RED);
     }
 
     /**
