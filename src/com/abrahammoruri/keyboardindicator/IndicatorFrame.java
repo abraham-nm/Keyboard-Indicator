@@ -13,6 +13,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -33,6 +35,7 @@ public class IndicatorFrame extends javax.swing.JFrame {
      */
     public IndicatorFrame() {
         initComponents();
+        closeBtn.setBackground(new Color(20, 20, 20, 140));
         menuBtn.setVisible(false);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
@@ -45,14 +48,7 @@ public class IndicatorFrame extends javax.swing.JFrame {
         int windowy = usableHeight - getHeight();
         setLocation(windowx, windowy - 50);
         setBackground(new Color(0, 0, 0, 105));
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                updateButtons();
-                //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-        }, 0, 500);
+        //task was here
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -100,6 +96,19 @@ public class IndicatorFrame extends javax.swing.JFrame {
                 //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
+        this.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                updateButtons();
+                KeyBoardIndicator.listenForButtons(false);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                KeyBoardIndicator.listenForButtons(true);
+            }
+
+        });
     }
 
     public void toggleKey(int keycode) {
@@ -108,7 +117,7 @@ public class IndicatorFrame extends javax.swing.JFrame {
         toolkit.setLockingKeyState(keycode, !curretState);
     }
 
-    public void updateButtons() {
+    public static void updateButtons() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         boolean isCapslockOn = toolkit.getLockingKeyState(KeyEvent.VK_CAPS_LOCK);
         boolean isNumLockOn = toolkit.getLockingKeyState(KeyEvent.VK_NUM_LOCK);
@@ -222,10 +231,10 @@ public class IndicatorFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton capsBtn;
+    private static javax.swing.JButton capsBtn;
     private javax.swing.JButton closeBtn;
     private javax.swing.JButton menuBtn;
-    private javax.swing.JButton numBtn;
-    private javax.swing.JButton scrBtn;
+    private static javax.swing.JButton numBtn;
+    private static javax.swing.JButton scrBtn;
     // End of variables declaration//GEN-END:variables
 }

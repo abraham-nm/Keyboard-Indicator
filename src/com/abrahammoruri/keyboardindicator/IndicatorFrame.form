@@ -69,16 +69,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Aa"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="numBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="num"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="scrBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="scr"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="closeBtn">
       <Properties>
